@@ -9,4 +9,5 @@
 	<dimen name="card_margin_bottom">8dp</dimen>
     <dimen name="error_message_size">24sp</dimen>
 	<dimen name="error_button_margint_top">32dp</dimen>
+    <dimen name="contraint_group_margin">16dp</dimen>
 </resources>

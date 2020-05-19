@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-			  android:padding="@dimen/activity_horizontal_margin">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<ImageView
-		android:id="@+id/pupil_image"
-		android:layout_width="80dp"
-		android:layout_height="80dp"/>
+    <EditText
+        android:id="@+id/et_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:hint="@string/enter_country"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
 
-	<LinearLayout
-		android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="12"
+        android:hint="@string/enter_name"
+        app:layout_constraintEnd_toEndOf="@+id/et_country"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/et_country"
+        app:layout_constraintTop_toBottomOf="@+id/et_country" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_pupil"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_name"
+        app:layout_constraintStart_toStartOf="@+id/et_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_name"
+        app:layout_constraintVertical_bias="0.097" />
+
+	<ProgressBar
+		android:id="@+id/progressBar_pupilDetail"
+		style="?android:attr/progressBarStyle"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.498"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.569" />
 
-		<TextView
-			style="@style/TextDetail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/pupil_detail_id"/>
+	<include
+        android:id="@+id/error_container"
+        layout="@layout/error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-		<TextView
-			style="@style/TextDetail"
-			android:id="@+id/pupil_id"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			tools:text="123"/>
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/contraint_group_margin"
+        android:layout_marginLeft="@dimen/contraint_group_margin"
+        android:layout_marginTop="@dimen/contraint_group_margin"
+        android:visibility="visible"
+        app:constraint_referenced_ids="et_country,et_name,btn_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-	</LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-
-		<TextView
-			style="@style/TextDetail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/pupil_detail_name"/>
-
-		<TextView
-			style="@style/TextDetail"
-			android:id="@+id/pupil_name"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			tools:text="Abigayle Quigley"/>
-
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal">
-
-		<TextView
-			style="@style/TextDetail"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@string/pupil_detail_country"/>
-
-		<TextView
-			style="@style/TextDetail"
-			android:id="@+id/country"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			tools:text="India"/>
-
-	</LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

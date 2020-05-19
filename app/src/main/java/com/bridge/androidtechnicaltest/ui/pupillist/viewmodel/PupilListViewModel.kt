@@ -16,11 +16,13 @@ class PupilListViewModel(private val repository: IPupilRepository) : ViewModel()
     val pupilsStateObservable: LiveData<PupilListState>
         get() = _pupilStateObservable
 
-    fun getPupils() {
+    fun getPupils(isConnected: Boolean) {
         _pupilStateObservable.value = PupilListState.Progress
+
+        val getPupils = if (isConnected) repository.getOrFetchPupils() else repository.getOrFetchPupilsFromDb()
+
         compositeDisposable.add(
-                repository.getOrFetchPupils()
-                        .subscribeOn(Schedulers.io())
+                getPupils.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ pupils ->
                             _pupilStateObservable.value = PupilListState.Success(pupils)
@@ -30,6 +32,7 @@ class PupilListViewModel(private val repository: IPupilRepository) : ViewModel()
                         })
         )
     }
+
 
     sealed class PupilListState {
         object Progress : PupilListState()

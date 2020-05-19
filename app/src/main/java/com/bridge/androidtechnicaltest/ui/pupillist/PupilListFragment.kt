@@ -1,7 +1,6 @@
 package com.bridge.androidtechnicaltest.ui.pupillist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bridge.androidtechnicaltest.R
 import com.bridge.androidtechnicaltest.db.PupilList
+import com.bridge.androidtechnicaltest.ui.pupildetail.PupilDetailFragment
 import com.bridge.androidtechnicaltest.ui.pupillist.adapter.PupilsAdapter
 import com.bridge.androidtechnicaltest.ui.pupillist.viewmodel.PupilListViewModel
+import com.bridge.androidtechnicaltest.utility.Utilities
 import kotlinx.android.synthetic.main.error.*
 import kotlinx.android.synthetic.main.fragment_pupillist.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -23,7 +24,8 @@ class PupilListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_pupillist, container, false)
-        pupilListViewModel.getPupils()
+
+        pupilListViewModel.getPupils(Utilities.isConnected(activity))
         return view
     }
 
@@ -40,7 +42,12 @@ class PupilListFragment : Fragment() {
         })
 
         btn_retry.setOnClickListener {
-            pupilListViewModel.getPupils()
+            pupilListViewModel.getPupils(Utilities.isConnected(activity))
+        }
+
+        btn_add_pupil.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.container, PupilDetailFragment.newInstance())
+                    ?.addToBackStack(null)?.commit()
         }
 
     }
@@ -56,6 +63,7 @@ class PupilListFragment : Fragment() {
 
     private fun handleSuccess(pupils: PupilList) {
         progressBar.visibility = View.GONE
+        btn_add_pupil.visibility = View.VISIBLE
         error_container.visibility = View.GONE
         pupil_list.visibility = View.VISIBLE
         pupilsAdapter.setPupilsData(pupils.items)
@@ -63,6 +71,7 @@ class PupilListFragment : Fragment() {
 
     private fun showProgress() {
         progressBar.visibility = View.VISIBLE
+        btn_add_pupil.visibility = View.GONE
         error_container.visibility = View.GONE
         pupil_list.visibility = View.GONE
 
@@ -74,5 +83,6 @@ class PupilListFragment : Fragment() {
         pupil_list.visibility = View.GONE
 
     }
+
 
 }
